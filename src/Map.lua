@@ -1,4 +1,4 @@
-require('src.player.Fishbed')
+require('src.player.fishbed.Fishbed')
 require('src.enemy.EnemyManager')
 
 PLAYER_CATEGORY = {

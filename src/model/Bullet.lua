@@ -36,10 +36,6 @@ function Bullet:createCollider(x, y)
     self.collider = WORLD:newCircleCollider(x, y, 2)
 end
 
-function Bullet:collide()
-
-end
-
 function Bullet:getX()
     return self.collider:getX()
 end
@@ -48,8 +44,8 @@ function Bullet:getY()
     return self.collider:getY()
 end
 
-function Bullet:setShooter(shooter)
-    self.shooter = shooter
+function Bullet:setAircraft(aircraft)
+    self.aircraft = aircraft
 end
 
 function Bullet:setSprite(path)

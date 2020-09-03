@@ -18,7 +18,10 @@ function Button:render()
 end
 
 function Button:isClicked()
-    return self:getMouseClick() or self:getTouchClick()
+    if self.controller:mousePressed() or self.controller:screenTouched() then
+        return self:getMouseClick() or self:getTouchClick()
+    end
+    return false
 end
 
 function Button:isInButton(x, y)
@@ -46,4 +49,8 @@ function Button:setSprite(path)
     self.sprite = love.graphics.newImage(path)
     self.width = self.sprite:getWidth()
     self.height = self.sprite:getHeight()
+end
+
+function Button:setController(controller)
+    self.controller = controller
 end

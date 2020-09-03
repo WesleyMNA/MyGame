@@ -7,13 +7,16 @@ function Aircraft:extend(type)
 
         speed = 300,
         bullets = {},
+        specials = {},
+        enableSpecial = false,
+        cooldown = 0,
 
         scale = {
             x = 1,
             y = 1
         }
     }
-    
+
     this.__index = this
 
     setmetatable(this, self)
@@ -22,12 +25,15 @@ end
 
 function Aircraft:update(dt)
     updateLoop(dt, self.bullets)
+    updateLoop(dt, self.specials)
     self:attack()
-    self:resetShoot(dt)
+    if self.enableSpecial then self:launchSpecial() end
+    self:resetTimers(dt)
 end
 
 function Aircraft:render()
     renderLoop(self.bullets)
+    renderLoop(self.specials)
     love.graphics.draw(
         self.sprite, self:getX(), self:getY(),
         0, self.scale.x, self.scale.y,
@@ -58,14 +64,21 @@ function Aircraft:attack()
     end
 end
 
-function Aircraft:resetShoot(dt)
+function Aircraft:resetTimers(dt)
     self.shootTimer = self.shootTimer + dt
+    self.specialTimer = self.specialTimer + dt
 end
 
 function Aircraft:destroyBullet(bullet)
     local index = table.indexOf(self.bullets, bullet)
     table.remove(self.bullets, index)
     bullet.collider:destroy()
+end
+
+function Aircraft:destroySpecial(special)
+    local index = table.indexOf(self.specials, special)
+    table.remove(self.specials, index)
+    special.collider:destroy()
 end
 
 function Aircraft:createCollider(x, y)
@@ -124,6 +137,12 @@ end
 
 function Aircraft:setBulletClass(bulletClass)
     self.bulletClass = function ()
-        return bulletClass:new(self:getX(), self:getY(), self)
+        local x = self:getX()
+        local y = self:getY() - self.height/2
+        return bulletClass:new(x, y, self)
     end
+end
+
+function Aircraft:setSpecialCooldown(number)
+    self.specialCooldown = number
 end

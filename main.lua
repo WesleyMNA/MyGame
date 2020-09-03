@@ -14,7 +14,7 @@ MAP = Map:new()
 local controller
 
 function love.load()
-    controller = Controller:new(MAP.player)
+    controller = Controller:new()
 end
 
 function love.update(dt)
@@ -24,10 +24,11 @@ function love.update(dt)
 end
 
 function love.draw()
-    WORLD:draw()
+    -- WORLD:draw()
     MAP:render()
     controller:render()
 
+    love.graphics.setColor(WHITE)
     love.graphics.print(WINDOW_WIDTH)
     love.graphics.print(WINDOW_HEIGHT, 0, 20)
 end

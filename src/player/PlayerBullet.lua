@@ -2,7 +2,7 @@ require('src.model.Bullet')
 
 PlayerBullet = Bullet:extend('PlayerBullet')
 
-function PlayerBullet:new(x, y, shooter)
+function PlayerBullet:new(x, y, aircraft)
     local this = {
         scale = {
             x = 1,
@@ -12,7 +12,7 @@ function PlayerBullet:new(x, y, shooter)
 
     setmetatable(this, self)
 
-    this:setShooter(shooter)
+    this:setAircraft(aircraft)
 
     local path = 'assets/sprites/player/bullet.png'
     this:setSprite(path)
@@ -25,5 +25,5 @@ function PlayerBullet:new(x, y, shooter)
 end
 
 function PlayerBullet:collide()
-    if self:getY() <= 0 then self.shooter:destroyBullet(self) end
+    if self:getY() <= 0 then self.aircraft:destroyBullet(self) end
 end
