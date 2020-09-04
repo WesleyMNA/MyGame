@@ -24,7 +24,7 @@ function SpecialButton:new(x, y, controller)
 end
 
 function SpecialButton:update(dt)
-    if self:isSpecialReady() and self:isClicked() then
+    if self:isSpecialReady() and self:isClicked() or love.keyboard.isDown('space') then
         self.timer = 0
         self.player.enableSpecial = true
     end
@@ -34,7 +34,7 @@ end
 function SpecialButton:render()
     local alpha = self.timer / self.cooldown
     local color = addAlpha(WHITE, alpha)
-    love.graphics.setColor(color)
+    setColor(color)
     love.graphics.draw(self.sprite, self.x, self.y)
 end
 

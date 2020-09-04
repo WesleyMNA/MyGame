@@ -39,6 +39,8 @@ function Aircraft:render()
         0, self.scale.x, self.scale.y,
         self.width/2, self.height/2
     )
+    
+    if self.launchBombs then self:drawTarget() end
 end
 
 function Aircraft:move(x, y, dt)
@@ -85,6 +87,9 @@ function Aircraft:createCollider(x, y)
     self.collider = WORLD:newCircleCollider(x, y, 16)
     self.collider:setCollisionClass('Player')
     self.collider:setCategory(PLAYER_CATEGORY.collider)
+
+    -- Do not collide with land vehicles
+    self.collider:setMask(ENEMY_CATEGORY.landCollider)
 end
 
 function Aircraft:isOnRightEdge()

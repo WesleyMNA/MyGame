@@ -13,7 +13,7 @@ function Button:extend(type)
 end
 
 function Button:render()
-    love.graphics.setColor(WHITE)
+    setColor(WHITE)
     love.graphics.draw(self.sprite, self.x, self.y)
 end
 

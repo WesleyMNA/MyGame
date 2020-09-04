@@ -7,6 +7,8 @@ Fishbed = Aircraft:extend('Fishbed')
 function Fishbed:new(x, y)
     local this = {
 
+        launchBombs = true,
+        target = love.graphics.newImage('assets/sprites/player/target.png'),
         specialTimer = 0.5,
         specialsLaunched = 0,
 
@@ -32,7 +34,7 @@ function Fishbed:new(x, y)
 end
 
 function Fishbed:launchSpecial()
-    if self.specialTimer >= 0.5 then
+    if self.specialTimer >= 0.2 then
         self.specialTimer = 0
 
         local side
@@ -49,4 +51,12 @@ function Fishbed:launchSpecial()
             self.enableSpecial = false
         end
     end
+end
+
+function Fishbed:drawTarget()
+    local y = self:getY() - FishbedSpecial.range - self.height/2
+    local w, h = self.target:getWidth()/2, self.target:getHeight()/2
+    love.graphics.draw(
+        self.target, self:getX(), y, 0, 1, 1, w, h
+    )
 end

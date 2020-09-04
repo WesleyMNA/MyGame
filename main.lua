@@ -24,11 +24,11 @@ function love.update(dt)
 end
 
 function love.draw()
-    -- WORLD:draw()
     MAP:render()
+    WORLD:draw()
     controller:render()
 
-    love.graphics.setColor(WHITE)
+    setColor(WHITE)
     love.graphics.print(WINDOW_WIDTH)
     love.graphics.print(WINDOW_HEIGHT, 0, 20)
 end

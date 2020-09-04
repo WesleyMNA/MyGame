@@ -4,6 +4,7 @@ FishbedSpecial = Bomb:extend('FishbedSpecial')
 
 function FishbedSpecial:new(x, y, aircraft)
     local this = {
+        damage = 2,
         scale = {
             x = 1,
             y = -1
@@ -15,11 +16,9 @@ function FishbedSpecial:new(x, y, aircraft)
     this:setAircraft(aircraft)
 
     local path = 'assets/sprites/player/fishbed/special.png'
-    this:setSprite(path)
+    this:setSpritesheet(path)
 
-    this:createCollider(x, y, 3)
-    this.collider:setCollisionClass('PlayerBullet')
-    this.collider:setMask(PLAYER_CATEGORY.collider)
+    this:createCollider(x, y, 10)
 
     this:setStartY(y)
 

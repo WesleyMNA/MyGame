@@ -1,5 +1,9 @@
+require('src.enemy.Tank')
+
 EnemyManager = {}
 EnemyManager.__index = EnemyManager
+
+local t = 0
 
 function EnemyManager:new()
     local this = {
@@ -16,6 +20,15 @@ end
 function EnemyManager:update(dt)
     updateLoop(dt, self.enemiesInScene)
     updateLoop(dt, self.objectsInScene)
+
+    t = t + dt
+
+    if t >= 3 then 
+        local x, y = math.random(0, WINDOW_WIDTH), 0
+        local tank = Tank:new(x, y, self)
+        self:addEnemy(tank)
+        t = 0
+    end
 end
 
 function EnemyManager:render()

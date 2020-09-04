@@ -24,12 +24,16 @@ function Animation:update(dt)
     if self.timer <= 0 then
         self.timer = 1 / self.fps
         self.frame = self.frame + 1
-        if self.frame >= self.frames then
+        if self.frame >= self.frames and self:hasLoop() then
             self.frame = 0
         end
         self.xoffset = self.xoffsetMul * self.frame
         self.quad:setViewport(self.xoffset, self.yoffset, self.xoffsetMul, self.xoffsetMul)
     end
+end
+
+function Animation:hasFinished()
+    return not self.loop and self.frame >= self.frames
 end
 
 function Animation:hasLoop()

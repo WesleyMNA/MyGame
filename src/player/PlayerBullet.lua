@@ -19,11 +19,18 @@ function PlayerBullet:new(x, y, aircraft)
 
     this:createCollider(x, y)
     this.collider:setCollisionClass('PlayerBullet')
+    this.collider:setCategory(PLAYER_CATEGORY.bullet)
     this.collider:setMask(PLAYER_CATEGORY.collider)
 
+    this.collider:setObject(this)
+    
     return this
 end
 
 function PlayerBullet:collide()
-    if self:getY() <= 0 then self.aircraft:destroyBullet(self) end
+    if self:getY() <= 0 or self:hitEnemy() then self.aircraft:destroyBullet(self) end
+end
+
+function PlayerBullet:hitEnemy()
+    return self.collider:enter('Enemy')
 end

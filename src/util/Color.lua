@@ -14,3 +14,7 @@ function addAlpha(color, alpha)
     aux[4] = alpha
     return aux
 end
+
+function setColor(color)
+    love.graphics.setColor(color)
+end

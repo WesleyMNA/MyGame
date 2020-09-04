@@ -5,6 +5,7 @@ function Bullet:extend(type)
     local this = {
         class = type,
 
+        damage = 1,
         speed = 600
     }
 
