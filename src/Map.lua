@@ -12,6 +12,7 @@ PLAYER_CATEGORY = {
 ENEMY_CATEGORY = {
     airCollider = 10,
     landCollider = 11,
+    bullet = 12
 }
 
 
@@ -22,9 +23,10 @@ function Map:new()
     local this = {
         class = 'Map',
 
-        player = Fishbed:new(150, 450),
-        enemyManager = EnemyManager:new()
+        player = Fishbed:new(150, 450)
     }
+
+    this.enemyManager = EnemyManager:new(this)
 
     this.sprite = love.graphics.newImage('assets/sprites/map.png')
     setmetatable(this, self)

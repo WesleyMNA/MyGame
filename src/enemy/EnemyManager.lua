@@ -1,13 +1,16 @@
 require('src.enemy.Tank')
+require('src.enemy.Helicopter')
 
 EnemyManager = {}
 EnemyManager.__index = EnemyManager
 
 local t = 0
 
-function EnemyManager:new()
+function EnemyManager:new(map)
     local this = {
         class = 'EnemyManager',
+
+        player = map.player,
 
         enemiesInScene = {},
         objectsInScene = {}
@@ -25,8 +28,9 @@ function EnemyManager:update(dt)
 
     if t >= 3 then 
         local x, y = math.random(0, WINDOW_WIDTH), 0
-        local tank = Tank:new(x, y, self)
-        self:addEnemy(tank)
+        -- local tank = Tank:new(x, y, self)
+        local helicopter = Helicopter:new(x, y, self)
+        self:addEnemy(helicopter)
         t = 0
     end
 end
@@ -34,6 +38,9 @@ end
 function EnemyManager:render()
     renderLoop(self.enemiesInScene)
     renderLoop(self.objectsInScene)
+
+    love.graphics.print(#self.enemiesInScene, 150, 0)
+    love.graphics.print(#self.objectsInScene, 150, 20)
 end
 
 function EnemyManager:addEnemy(enemy)

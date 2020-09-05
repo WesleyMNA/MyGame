@@ -67,6 +67,28 @@ function Bomb:createCollider(x, y, r)
     self.collider:setMask(PLAYER_CATEGORY.collider)
 end
 
+function Bomb:createAnimation()
+    self.quad = love.graphics.newQuad(0, 0, self.width, self.height, self.spritesheet:getDimensions())
+    local moveData = {
+        fps = 10,
+        frames = 1,
+        xoffsetMul = self.width,
+        yoffset = 0,
+        loop = true
+    }
+    local collideData = {
+        fps = 10,
+        frames = 3,
+        xoffsetMul = self.width,
+        yoffset = self.height,
+        loop = false
+    }
+    self.animations = {
+        move = Animation:new(self.quad, moveData),
+        collide = Animation:new(self.quad, collideData)
+    }
+end
+
 function Bomb:isOutOfRange()
     local distance = self:getY() - self.startY
     if self:getY() < 30 or
@@ -89,33 +111,11 @@ function Bomb:setAircraft(aircraft)
     self.aircraft = aircraft
 end
 
-function Bomb:setAnimation()
-    self.quad = love.graphics.newQuad(0, 0, self.width, self.height, self.spritesheet:getDimensions())
-    local moveData = {
-        fps = 10,
-        frames = 1,
-        xoffsetMul = self.width,
-        yoffset = 0,
-        loop = true
-    }
-    local collideData = {
-        fps = 10,
-        frames = 3,
-        xoffsetMul = self.width,
-        yoffset = self.height,
-        loop = false
-    }
-    self.animations = {
-        move = Animation:new(self.quad, moveData),
-        collide = Animation:new(self.quad, collideData)
-    }
-end
-
 function Bomb:setSpritesheet(path)
     self.spritesheet = love.graphics.newImage(path)
     self.width = TILE_SIZE
     self.height = TILE_SIZE
-    self:setAnimation()
+    self:createAnimation()
 end
 
 function Bomb:setStartY(y)

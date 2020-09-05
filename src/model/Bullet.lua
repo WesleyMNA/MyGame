@@ -45,8 +45,16 @@ function Bullet:getY()
     return self.collider:getY()
 end
 
-function Bullet:setAircraft(aircraft)
-    self.aircraft = aircraft
+function Bullet:setX(x)
+    self.collider:setX(x)
+end
+
+function Bullet:setY(y)
+    self.collider:setY(y)
+end
+
+function Bullet:setShooter(shooter)
+    self.shooter = shooter
 end
 
 function Bullet:setSprite(path)

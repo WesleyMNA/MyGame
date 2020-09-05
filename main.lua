@@ -18,14 +18,14 @@ function love.load()
 end
 
 function love.update(dt)
-    WORLD:update(dt)
     MAP:update(dt)
+    WORLD:update(dt)
     controller:update(dt)
 end
 
 function love.draw()
     MAP:render()
-    WORLD:draw()
+    -- WORLD:draw()
     controller:render()
 
     setColor(WHITE)

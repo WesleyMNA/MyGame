@@ -39,7 +39,9 @@ function Aircraft:render()
         0, self.scale.x, self.scale.y,
         self.width/2, self.height/2
     )
-    
+
+    self.collider:setLinearVelocity(0, 0)
+
     if self.launchBombs then self:drawTarget() end
 end
 
