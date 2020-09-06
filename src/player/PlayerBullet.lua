@@ -20,15 +20,20 @@ function PlayerBullet:new(x, y, shooter)
     this:createCollider(x, y)
     this.collider:setCollisionClass('PlayerBullet')
     this.collider:setCategory(PLAYER_CATEGORY.bullet)
-    this.collider:setMask(PLAYER_CATEGORY.collider)
+    this.collider:setMask(
+        PLAYER_CATEGORY.collider,
+        PLAYER_CATEGORY.bullet,
+        PLAYER_CATEGORY.fallingBomb,
+        PLAYER_CATEGORY.bomb
+    )
 
     this.collider:setObject(this)
-    
+
     return this
 end
 
 function PlayerBullet:collide()
-    if self:getY() <= 0 or self:hitEnemy() then self.shooter:destroyBullet(self) end
+    if self:isOutOfScreen() or self:hitEnemy() then self.shooter:destroyBullet(self) end
 end
 
 function PlayerBullet:hitEnemy()

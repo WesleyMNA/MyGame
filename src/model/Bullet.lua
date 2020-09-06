@@ -16,7 +16,7 @@ function Bullet:extend(type)
 end
 
 function Bullet:update(dt)
-    self:move()
+    self:move(dt)
     self:collide()
 end
 
@@ -28,13 +28,19 @@ function Bullet:render()
     )
 end
 
-function Bullet:move()
+function Bullet:move(dt)
     local direction = self.speed * self.scale.y
     self.collider:setLinearVelocity(0, direction)
 end
 
 function Bullet:createCollider(x, y)
     self.collider = WORLD:newCircleCollider(x, y, 2)
+end
+
+function Bullet:isOutOfScreen()
+    local xBool = self:getX() <= 0 or self:getX() >= WINDOW_WIDTH
+    local yBool = self:getY() <= 0 or self:getY() >= WINDOW_HEIGHT
+    return xBool or yBool
 end
 
 function Bullet:getX()
@@ -55,6 +61,14 @@ end
 
 function Bullet:setShooter(shooter)
     self.shooter = shooter
+end
+
+function Bullet:setShooter(shooter)
+    self.shooter = shooter
+end
+
+function Bullet:setEnemyManager(enemyManager)
+    self.enemyManager = enemyManager
 end
 
 function Bullet:setSprite(path)

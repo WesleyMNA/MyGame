@@ -1,11 +1,10 @@
-require('src.model.AirVehicle')
+require('src.model.MobileEnemy')
+require('src.enemy.EnemyBullet')
 
-Helicopter = AirVehicle:extend('Helicopter')
+Helicopter = MobileEnemy:extend('Helicopter')
 
 function Helicopter:new(x, y, enemyManager)
-    local this = {
-
-    }
+    local this = {}
 
     setmetatable(this, self)
 
@@ -14,9 +13,12 @@ function Helicopter:new(x, y, enemyManager)
     this.width, this.height = this.sprite:getHeight(), this.sprite:getHeight()
     this:createAnimation()
 
-    this:createCollider(x, y, 16)
+    this:createAirCollider(x, y, 16)
 
     this:setEnemyManager(enemyManager)
+    this:setBulletClass(EnemyBullet)
+    this:setShotSpeed(1)
+
     return this
 end
 

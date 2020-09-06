@@ -42,6 +42,7 @@ function Aircraft:render()
 
     self.collider:setLinearVelocity(0, 0)
 
+    -- Draws a target that shows the range of bombs
     if self.launchBombs then self:drawTarget() end
 end
 
@@ -90,8 +91,13 @@ function Aircraft:createCollider(x, y)
     self.collider:setCollisionClass('Player')
     self.collider:setCategory(PLAYER_CATEGORY.collider)
 
-    -- Do not collide with land vehicles
-    self.collider:setMask(ENEMY_CATEGORY.landCollider)
+    -- Do not collide with land vehicles or it weapons
+    self.collider:setMask(
+        ENEMY_CATEGORY.landCollider,
+        PLAYER_CATEGORY.bullet,
+        PLAYER_CATEGORY.bomb,
+        PLAYER_CATEGORY.fallingBomb
+    )
 end
 
 function Aircraft:isOnRightEdge()

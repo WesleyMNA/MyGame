@@ -1,20 +1,21 @@
-require('src.model.LandVehicle')
+require('src.model.MobileEnemy')
+require('src.enemy.EnemyBullet')
 
-Tank = LandVehicle:extend('Tank')
+Tank = MobileEnemy:extend('Tank')
 
 function Tank:new(x, y, enemyManager)
-    local this = {
-
-    }
+    local this = {}
 
     setmetatable(this, self)
 
     local path = 'assets/sprites/enemy/tank.png'
     this:setSprite(path)
 
-    this:createCollider(x, y, 16)
+    this:createLandCollider(x, y, 16)
 
     this:setEnemyManager(enemyManager)
+    this:setBulletClass(EnemyBullet)
+    this:setShotSpeed(1)
 
     return this
 end

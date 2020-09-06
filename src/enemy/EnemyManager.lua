@@ -26,9 +26,10 @@ function EnemyManager:update(dt)
 
     t = t + dt
 
-    if t >= 3 then 
+    if t >= 3 then
         local x, y = math.random(0, WINDOW_WIDTH), 0
         -- local tank = Tank:new(x, y, self)
+        -- self:addEnemy(tank)
         local helicopter = Helicopter:new(x, y, self)
         self:addEnemy(helicopter)
         t = 0
@@ -39,8 +40,9 @@ function EnemyManager:render()
     renderLoop(self.enemiesInScene)
     renderLoop(self.objectsInScene)
 
-    love.graphics.print(#self.enemiesInScene, 150, 0)
-    love.graphics.print(#self.objectsInScene, 150, 20)
+    local x = 250
+    love.graphics.print('Enemies: '.. #self.enemiesInScene, x, 0)
+    love.graphics.print('Objects: '.. #self.objectsInScene, x, 20)
 end
 
 function EnemyManager:addEnemy(enemy)

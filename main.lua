@@ -25,7 +25,7 @@ end
 
 function love.draw()
     MAP:render()
-    -- WORLD:draw()
+    WORLD:draw()
     controller:render()
 
     setColor(WHITE)

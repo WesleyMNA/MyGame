@@ -47,7 +47,7 @@ end
 function Bomb:collide()
     if self:isOutOfRange() then
         self.state = 'collide'
-        self.collider:setCategory(PLAYER_CATEGORY.bomb)
+        self.collider:setCategory(PLAYER_CATEGORY.bomb) -- Changes category to collide with land enemies
     end
 
     if self.state == 'collide' and self.animations[self.state]:hasFinished() then
@@ -63,8 +63,12 @@ function Bomb:createCollider(x, y, r)
     self.collider:setObject(self)
 
     -- Do not collide with aircrafts
-    self.collider:setMask(ENEMY_CATEGORY.airCollider)
-    self.collider:setMask(PLAYER_CATEGORY.collider)
+    self.collider:setMask(
+        PLAYER_CATEGORY.collider,
+        PLAYER_CATEGORY.fallingBomb,
+        ENEMY_CATEGORY.airCollider,
+        ENEMY_CATEGORY.bullet
+    )
 end
 
 function Bomb:createAnimation()
