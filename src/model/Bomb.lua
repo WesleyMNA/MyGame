@@ -103,6 +103,10 @@ function Bomb:isOutOfRange()
     return false
 end
 
+function Bomb:getPosition()
+    return self.collider:getPosition()
+end
+
 function Bomb:getX()
     return self.collider:getX()
 end

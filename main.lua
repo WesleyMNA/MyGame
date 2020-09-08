@@ -25,10 +25,18 @@ end
 
 function love.draw()
     MAP:render()
-    WORLD:draw()
+    -- WORLD:draw()
     controller:render()
 
+
     setColor(WHITE)
-    love.graphics.print(WINDOW_WIDTH)
-    love.graphics.print(WINDOW_HEIGHT, 0, 20)
+    local windownDimentions = 'WIDTH: '.. WINDOW_WIDTH ..' HEIGHT: '.. WINDOW_HEIGHT
+    lovePrint(windownDimentions)
+
+    local o = 'Orientation: '.. love.window.getDisplayOrientation()
+    lovePrint(o, 0, 20)
+
+    local x, y = MAP.player:getPosition()
+    local player = 'X: '.. math.floor(x) ..' Y: '.. math.floor(y)
+    lovePrint(player, 0, 40)
 end

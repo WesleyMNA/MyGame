@@ -9,7 +9,7 @@ ORANGE = {1, 0.64, 0}
 GREY = {0.5, 0.5, 0.5}
 TURQUOISE= {0.25, 0.87, 0.81}
 
-function addAlpha(color, alpha) 
+function addAlpha(color, alpha)
     local aux = copy(color)
     aux[4] = alpha
     return aux

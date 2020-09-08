@@ -40,9 +40,9 @@ function EnemyManager:render()
     renderLoop(self.enemiesInScene)
     renderLoop(self.objectsInScene)
 
-    local x = 250
-    love.graphics.print('Enemies: '.. #self.enemiesInScene, x, 0)
-    love.graphics.print('Objects: '.. #self.objectsInScene, x, 20)
+    -- local x = 250
+    -- love.graphics.print('Enemies: '.. #self.enemiesInScene, x, 0)
+    -- love.graphics.print('Objects: '.. #self.objectsInScene, x, 20)
 end
 
 function EnemyManager:addEnemy(enemy)

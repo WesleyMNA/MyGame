@@ -43,6 +43,10 @@ function Bullet:isOutOfScreen()
     return xBool or yBool
 end
 
+function Bullet:getPosition()
+    return self.collider:getPosition()
+end
+
 function Bullet:getX()
     return self.collider:getX()
 end

@@ -26,11 +26,12 @@ function Controller:render()
 end
 
 function Controller:movePlayer(dt)
+    local yDelimiter = 50
     if self:screenTouched() then
         if not self:isAnyButtonClicked() then
             local firstTouch = love.touch.getTouches()[1]
             local x, y = love.touch.getPosition(firstTouch)
-            y = y - 20
+            y = y - yDelimiter
             self.player:move(x, y, dt)
         end
     end
@@ -38,7 +39,7 @@ function Controller:movePlayer(dt)
     if self:mousePressed() then
         if not self:isAnyButtonClicked() then
             local x, y = love.mouse.getPosition()
-            y = y - 20
+            y = y - yDelimiter
             self.player:move(x, y, dt)
         end
     end

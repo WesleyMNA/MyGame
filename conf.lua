@@ -1,10 +1,16 @@
 function love.conf(t)
-    t.console = true
+    -- t.console = true
 
-    t.window.title = 'Game'
-    t.window.width = 336
-    t.window.height = 640
+    t.version = "11.3"
+    t.window.title = 'My Game'
 
-    t.window.x = 1000
+    t.window.width = 360
+    t.window.height = 616
+
+    t.window.highdpi = true
+
+    t.window.x = 0
     t.window.y = 50
+
+    t.modules.joystick = false
 end

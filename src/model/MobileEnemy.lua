@@ -113,6 +113,10 @@ function MobileEnemy:createLandCollider(x, y, r)
     )
 end
 
+function MobileEnemy:getPosition()
+    return self.collider:getPosition()
+end
+
 function MobileEnemy:getX()
     return self.collider:getX()
 end

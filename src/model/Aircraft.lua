@@ -121,6 +121,10 @@ function Aircraft:isOnBottomEdge()
     return false
 end
 
+function Aircraft:getPosition()
+    return self.collider:getPosition()
+end
+
 function Aircraft:getX()
     return self.collider:getX()
 end
