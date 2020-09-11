@@ -23,7 +23,7 @@ function Fishbed:new(x, y)
     local path = 'assets/sprites/player/fishbed/fishbed.png'
     this:setSprite(path)
 
-    this:createCollider(x, y, 16)
+    this:createCollider(x, y, this.height/2)
 
     this:setShotSpeed(0.5)
     this:setBulletClass(PlayerBullet)
@@ -40,7 +40,7 @@ function Fishbed:launchSpecial()
         local side
         if self.specialsLaunched % 2 == 0 then side = 1 else side = -1 end
 
-        local x = self:getX() - 13 * side
+        local x = self:getX() - 17 * side
         local y = self:getY() - 6
         local special = FishbedSpecial:new(x, y, self)
         table.insert(self.specials, special)

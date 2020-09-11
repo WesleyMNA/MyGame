@@ -26,7 +26,7 @@ end
 function Aircraft:update(dt)
     updateLoop(dt, self.bullets)
     updateLoop(dt, self.specials)
-    self:attack()
+    -- self:attack()
     if self.enableSpecial then self:launchSpecial() end
     self:resetTimers(dt)
 end

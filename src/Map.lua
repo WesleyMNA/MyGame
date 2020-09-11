@@ -21,8 +21,6 @@ ENEMY_CATEGORY = {
 TILE_EMPTY = 1
 SAND = 3
 DARK_SAND = 4
-GRASS = 5
-DARK_GRASS = 6
 
 Map = {}
 Map.__index = Map
@@ -40,7 +38,8 @@ function Map:new()
 
         player = Fishbed:new(150, 450),
 
-        tiles = {}
+        tiles = {},
+        scale = 25,
     }
 
     this.enemyManager = EnemyManager:new(this)
@@ -48,8 +47,8 @@ function Map:new()
     setmetatable(this, self)
 
     for y = this.initialPoint, this.height do
-        for x = 1, this.width do
-            local n = love.math.noise(x/20, y/20)
+        for x = 0, this.width do
+            local n = love.math.noise(x/this.scale, y/this.scale)
             if n <= 0.5 then tile = SAND else tile = DARK_SAND end
             this:addTile(x, y, tile)
         end
@@ -71,23 +70,23 @@ function Map:render()
 
     renderLoop(self.tiles)
 
-    self.player:render()
     self.enemyManager:render()
+    self.player:render()
 
     lovePrint('Tiles in scene: '.. #self.tiles, 0, 60)
 end
 
 function Map:createNewLayer()
     local tile
-    for x = 1, self.width do
-        local n = love.math.noise(x/10, self.y/10)
-        if n <= 0.5 then tile = GRASS else tile = DARK_GRASS end
+    for x=0, self.width do
+        local n = love.math.noise(x/self.scale, self.y/self.scale)
+        if n <= 0.5 then tile = SAND else tile = DARK_SAND end
         self:addTile(x, self.initialPoint, tile)
     end
 end
 
 function Map:addTile(x, y, n)
-    x, y = (x-1) * TILE_SIZE, (y-1) * TILE_SIZE
+    x, y = x * TILE_SIZE, y * TILE_SIZE
     local tile = Tile:new(x, y, n)
     table.insert(self.tiles, tile)
 end
@@ -101,5 +100,3 @@ end
 function Map:getTile(x, y)
     return self.tiles[(y - 1) * self.width + x]
 end
-
--- sets a tile at a given x-y coordinate to an integer value

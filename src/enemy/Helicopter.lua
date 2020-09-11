@@ -13,10 +13,10 @@ function Helicopter:new(x, y, enemyManager)
     this.width, this.height = this.sprite:getHeight(), this.sprite:getHeight()
     this:createAnimation()
 
-    this:createAirCollider(x, y, 16)
+    this:createAirCollider(x, y, this.width/2)
 
     this:setEnemyManager(enemyManager)
-    this:setBulletClass(EnemyBullet)
+    this:setBulletClass(EnemyBullet, 'atPlayer')
     this:setShotSpeed(1)
 
     return this

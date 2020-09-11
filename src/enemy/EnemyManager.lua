@@ -1,5 +1,7 @@
 require('src.enemy.Tank')
+require('src.enemy.Boss')
 require('src.enemy.Helicopter')
+require('src.enemy.FixedCannon')
 
 EnemyManager = {}
 EnemyManager.__index = EnemyManager
@@ -24,25 +26,39 @@ function EnemyManager:update(dt)
     updateLoop(dt, self.enemiesInScene)
     updateLoop(dt, self.objectsInScene)
 
-    t = t + dt
-
-    if t >= 3 then
-        local x, y = math.random(0, WINDOW_WIDTH), 0
-        -- local tank = Tank:new(x, y, self)
-        -- self:addEnemy(tank)
-        local helicopter = Helicopter:new(x, y, self)
-        self:addEnemy(helicopter)
-        t = 0
+    if #self.enemiesInScene <= 0 then
+        local x = WINDOW_WIDTH/2
+        local boss = Boss:new(x, -100, self)
+        self:addEnemy(boss)
     end
+
+    -- t = t + dt
+
+    -- if t >= 3 then
+    --     local delimiter = 50
+    --     local x, y = math.random(0+delimiter, WINDOW_WIDTH-delimiter), 0
+    --     local random = math.random(3)
+    --     if random == 1 then
+    --         local tank = Tank:new(x, y, self)
+    --         self:addEnemy(tank)
+    --     elseif random == 2 then
+    --         local fixedCannon = FixedCannon:new(x, y, self)
+    --         self:addEnemy(fixedCannon)
+    --     else
+    --         local helicopter = Helicopter:new(x, y, self)
+    --         self:addEnemy(helicopter)
+    --     end
+    --     t = 0
+    -- end
 end
 
 function EnemyManager:render()
     renderLoop(self.enemiesInScene)
     renderLoop(self.objectsInScene)
 
-    -- local x = 250
-    -- love.graphics.print('Enemies: '.. #self.enemiesInScene, x, 0)
-    -- love.graphics.print('Objects: '.. #self.objectsInScene, x, 20)
+    local x = 250
+    lovePrint('Enemies: '.. #self.enemiesInScene, x, 0)
+    lovePrint('Objects: '.. #self.objectsInScene, x, 20)
 end
 
 function EnemyManager:addEnemy(enemy)

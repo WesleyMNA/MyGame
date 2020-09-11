@@ -39,7 +39,7 @@ function MobileEnemy:render()
 end
 
 function MobileEnemy:move()
-    direction = self.speed * self.scale.y
+    local direction = self.speed * 1
     self.collider:setLinearVelocity(0, direction)
 end
 
@@ -140,10 +140,10 @@ function MobileEnemy:setShotSpeed(speed)
     self.shootTimer = speed
 end
 
-function MobileEnemy:setBulletClass(bulletClass)
+function MobileEnemy:setBulletClass(bulletClass, movement)
     self.bulletClass = function ()
         local x = self:getX()
         local y = self:getY() -- + self.height/2
-        return bulletClass:new(x, y, self)
+        return bulletClass:new(x, y, self, movement)
     end
 end

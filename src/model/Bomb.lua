@@ -59,8 +59,15 @@ function Bomb:createCollider(x, y, r)
     self.collider = WORLD:newCircleCollider(x, y, r)
     self.collider:setCollisionClass('Bomb')
     self.collider:setCategory(PLAYER_CATEGORY.fallingBomb)
-
     self.collider:setObject(self)
+
+    self.collider:setPreSolve(
+        function(collider_1, collider_2, contact)
+            if collider_1.collision_class == 'Bomb' and collider_2.collision_class == 'Enemy' then
+                contact:setEnabled(false)
+            end
+        end
+    )
 
     -- Do not collide with aircrafts
     self.collider:setMask(
