@@ -1,10 +1,10 @@
 require('src.model.Bullet')
 
-EnemyBullet = Bullet:extend('EnemyBullet')
+MegaBullet = Bullet:extend('MegaBullet')
 
-function EnemyBullet:new(x, y, shooter, movement)
+function MegaBullet:new(x, y, shooter, movement)
     local this = {
-        damage = 1,
+        damage = 5,
         scale = {
             x = 1,
             y = -1
@@ -31,7 +31,7 @@ function EnemyBullet:new(x, y, shooter, movement)
 
     this:setEnemyManager(shooter.enemyManager)
 
-    local path = 'assets/sprites/enemy/enemy_bullet.png'
+    local path = 'assets/sprites/enemy/boss/mega_bullet.png'
     this:setSprite(path)
 
     this:createCollider(x, y)
@@ -53,20 +53,20 @@ function EnemyBullet:new(x, y, shooter, movement)
     return this
 end
 
-function EnemyBullet:update(dt)
+function MegaBullet:update(dt)
     self.move[self.movement](dt)
     self:collide()
 end
 
-function EnemyBullet:collide()
+function MegaBullet:collide()
     if self:isOutOfScreen() or self:hitPlayer() then self.enemyManager:destroyObject(self) end
 end
 
-function EnemyBullet:hitPlayer()
+function MegaBullet:hitPlayer()
     return self.collider:enter('Player')
 end
 
-function EnemyBullet:getDirection()
+function MegaBullet:getDirection()
     local player = self.enemyManager.player
 
     local side = {}

@@ -1,5 +1,6 @@
-require('src.player.fishbed.Fishbed')
+require('src.gui.Controller')
 require('src.enemy.EnemyManager')
+require('src.player.fishbed.Fishbed')
 
 require('src.Tile')
 
@@ -42,6 +43,7 @@ function Map:new()
         scale = 25,
     }
 
+    this.controller = Controller:new(this)
     this.enemyManager = EnemyManager:new(this)
 
     setmetatable(this, self)
@@ -61,8 +63,10 @@ function Map:update(dt)
     self.y = self.y + 1
     if self.y % 16 == 0 then self:createNewLayer() end
     updateLoop(dt, self.tiles)
+    self.controller:update(dt)
     self.player:update(dt)
     self.enemyManager:update(dt)
+    WORLD:update(dt)
 end
 
 function Map:render()
@@ -72,8 +76,8 @@ function Map:render()
 
     self.enemyManager:render()
     self.player:render()
-
-    lovePrint('Tiles in scene: '.. #self.tiles, 0, 60)
+    self.controller:render()
+     -- WORLD:draw(0.5)
 end
 
 function Map:createNewLayer()

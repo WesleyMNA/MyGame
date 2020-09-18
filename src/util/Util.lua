@@ -60,3 +60,11 @@ function lovePrint(text, x, y)
     y = y or 0
     love.graphics.print(text, x, y)
 end
+
+function getInt(n)
+    if n < 0 then
+        return math.floor(n)
+    else
+        return math.ceil(n)
+    end
+end

@@ -1,16 +1,12 @@
-MobileEnemy = {}
-MobileEnemy.__index = MobileEnemy
+Boss = {}
+Boss.__index = Boss
 
-function MobileEnemy:extend(type)
+function Boss:extend(type)
     local this = {
         class = type,
 
         health = 1,
         speed = 150,
-        direction = {
-            x = 1,
-            y = 1
-        },
         scale = {
             x = 1,
             y = 1
@@ -23,7 +19,7 @@ function MobileEnemy:extend(type)
     return this
 end
 
-function MobileEnemy:update(dt)
+function Boss:update(dt)
     -- Some enemies have animations to update
     if self.animation then self.animation:update(dt) end
 
@@ -34,7 +30,7 @@ function MobileEnemy:update(dt)
     self:die()
 end
 
-function MobileEnemy:render()
+function Boss:render()
     love.graphics.draw(
         self.sprite, self:getX(), self:getY(),
         0, self.scale.x, self.scale.y,
@@ -42,12 +38,12 @@ function MobileEnemy:render()
     )
 end
 
-function MobileEnemy:move()
-    local y = self.speed * self.direction.y
-    self.collider:setLinearVelocity(0, y)
+function Boss:move()
+    local direction = self.speed * 1
+    self.collider:setLinearVelocity(0, direction)
 end
 
-function MobileEnemy:attack()
+function Boss:attack()
     if self.shootTimer >= self.shootSpeed then
         self.shootTimer = 0
         local bullet = self.bulletClass()
@@ -55,11 +51,11 @@ function MobileEnemy:attack()
     end
 end
 
-function MobileEnemy:resetTimer(dt)
+function Boss:resetTimer(dt)
     self.shootTimer = self.shootTimer + dt
 end
 
-function MobileEnemy:collide()
+function Boss:collide()
     -- Both types of vehicles will collide with bullets
     if self.collider:enter('PlayerBullet') then
         self.health = self.health - PlayerBullet.damage
@@ -78,19 +74,20 @@ function MobileEnemy:collide()
     end
 end
 
-function MobileEnemy:die()
+function Boss:die()
     if self.health <= 0 then
-        self.enemyManager:destroyEnemy(self)
+        self.enemyManager:destroyBoss(self)
         return
     end
 
-    if self:getY() >= WINDOW_HEIGHT then self.enemyManager:destroyEnemy(self) end
+    if self:getY() >= WINDOW_HEIGHT then self.enemyManager:destroyBoss(self) end
 end
 
-function MobileEnemy:createAirCollider(x, y, r)
-    self.collider = WORLD:newCircleCollider(x, y, r)
+function Boss:createAirCollider(x, y, w, h)
+    self.collider = WORLD:newRectangleCollider(x, y, w, h)
     self.collider:setCollisionClass('Enemy')
     self.collider:setCategory(ENEMY_CATEGORY.airCollider)
+    self.collider:setFixedRotation(true)
 
     -- Do not collide with land vehicles or bombs
     self.collider:setMask(
@@ -102,10 +99,11 @@ function MobileEnemy:createAirCollider(x, y, r)
     )
 end
 
-function MobileEnemy:createLandCollider(x, y, r)
-    self.collider = WORLD:newCircleCollider(x, y, r)
+function Boss:createLandCollider(x, y, w, h)
+    self.collider = WORLD:newRectangleCollider(x, y, w, h)
     self.collider:setCollisionClass('Enemy')
     self.collider:setCategory(ENEMY_CATEGORY.landCollider)
+    self.collider:setFixedRotation(true)
 
     -- Do not collide with aircrafts
     self.collider:setMask(
@@ -117,34 +115,34 @@ function MobileEnemy:createLandCollider(x, y, r)
     )
 end
 
-function MobileEnemy:getPosition()
+function Boss:getPosition()
     return self.collider:getPosition()
 end
 
-function MobileEnemy:getX()
+function Boss:getX()
     return self.collider:getX()
 end
 
-function MobileEnemy:getY()
+function Boss:getY()
     return self.collider:getY()
 end
 
-function MobileEnemy:setSprite(path)
+function Boss:setSprite(path)
     self.sprite = love.graphics.newImage(path)
     self.width = self.sprite:getWidth()
     self.height = self.sprite:getHeight()
 end
 
-function MobileEnemy:setEnemyManager(enemyManager)
+function Boss:setEnemyManager(enemyManager)
     self.enemyManager = enemyManager
 end
 
-function MobileEnemy:setShotSpeed(speed)
+function Boss:setShotSpeed(speed)
     self.shootSpeed = speed
     self.shootTimer = speed
 end
 
-function MobileEnemy:setBulletClass(bulletClass, movement)
+function Boss:setBulletClass(bulletClass, movement)
     self.bulletClass = function ()
         local x = self:getX()
         local y = self:getY() -- + self.height/2

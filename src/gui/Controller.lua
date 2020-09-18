@@ -1,13 +1,14 @@
-require('src.gui.SpecialButton')
+require('src.gui.button.SpecialButton')
 
 Controller = {}
 Controller.__index = Controller
 
-function Controller:new()
+function Controller:new(map)
     local this = {
         class = 'Controller',
 
-        player = MAP.player
+        map = map,
+        player = map.player
     }
 
     this.special = SpecialButton:new(0, WINDOW_HEIGHT-50, this)

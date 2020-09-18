@@ -7,8 +7,8 @@ function SpecialButton:new(x, y, controller)
         x = x,
         y = y,
 
-        player = MAP.player,
-        cooldown = MAP.player.specialCooldown
+        player = controller.map.player,
+        cooldown = controller.map.player.specialCooldown
     }
 
     this.timer = this.cooldown
@@ -24,7 +24,8 @@ function SpecialButton:new(x, y, controller)
 end
 
 function SpecialButton:update(dt)
-    if self:isSpecialReady() and self:isClicked() or love.keyboard.isDown('space') then
+    if self:isSpecialReady() and self:isClicked() or
+        self:isSpecialReady() and love.keyboard.isDown('space') then
         self.timer = 0
         self.player.enableSpecial = true
     end

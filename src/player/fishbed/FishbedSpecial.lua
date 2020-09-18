@@ -4,7 +4,7 @@ FishbedSpecial = Bomb:extend('FishbedSpecial')
 
 function FishbedSpecial:new(x, y, aircraft)
     local this = {
-        damage = 2,
+        damage = 5,
         scale = {
             x = 1,
             y = -1

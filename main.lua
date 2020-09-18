@@ -1,7 +1,7 @@
 require('src.Map')
 require('src.util.Util')
 require('src.util.Color')
-require('src.gui.Controller')
+require('src.gui.GUIManager')
 require('src.util.CreateCollisionClasses')
 
 local wf = require 'libs.windfield'
@@ -11,34 +11,19 @@ createCollisionClasses()
 
 MAP = Map:new()
 
-local controller
+GUI_MANAGER = GUIManager:new()
 
 function love.load()
-    controller = Controller:new()
+
 end
 
 function love.update(dt)
-    MAP:update(dt)
-    WORLD:update(dt)
-    controller:update(dt)
+    GUI_MANAGER:update(dt)
 end
 
 function love.draw()
-    MAP:render()
-    WORLD:draw(0.5)
-    controller:render()
-
-
     setColor(WHITE)
-    local windownDimentions = 'WIDTH: '.. WINDOW_WIDTH ..' HEIGHT: '.. WINDOW_HEIGHT
-    lovePrint(windownDimentions)
-
-    local o = 'Orientation: '.. love.window.getDisplayOrientation()
-    lovePrint(o, 0, 20)
-
-    local x, y = MAP.player:getPosition()
-    local player = 'X: '.. math.floor(x) ..' Y: '.. math.floor(y)
-    lovePrint(player, 0, 40)
+    GUI_MANAGER:render()
 end
 
 

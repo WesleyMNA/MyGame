@@ -17,8 +17,18 @@ function Button:render()
     love.graphics.draw(self.sprite, self.x, self.y)
 end
 
+function Button:screenTouched()
+    if #love.touch.getTouches() == 0 then return false end
+    return true
+end
+
+function Button:mousePressed()
+    if love.mouse.isDown(1) then return true end
+    return false
+end
+
 function Button:isClicked()
-    if self.controller:mousePressed() or self.controller:screenTouched() then
+    if self:mousePressed() or self:screenTouched() then
         return self:getMouseClick() or self:getTouchClick()
     end
     return false
@@ -28,6 +38,7 @@ function Button:isInButton(x, y)
     return x > self.x and x < self.x + self.width and
     y > self.y and y < self.y + self.height
 end
+
 
 function Button:getTouchClick()
     local bool = false
