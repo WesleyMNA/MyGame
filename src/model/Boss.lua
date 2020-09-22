@@ -4,7 +4,6 @@ Boss.__index = Boss
 function Boss:extend(type)
     local this = {
         class = type,
-
         health = 1,
         speed = 150,
         scale = {
@@ -21,7 +20,9 @@ end
 
 function Boss:update(dt)
     -- Some enemies have animations to update
-    if self.animation then self.animation:update(dt) end
+    if self.animation then
+        self.animation:update(dt)
+    end
 
     self:move()
     self:collide()
@@ -32,9 +33,14 @@ end
 
 function Boss:render()
     love.graphics.draw(
-        self.sprite, self:getX(), self:getY(),
-        0, self.scale.x, self.scale.y,
-        self.width/2, self.height/2
+        self.sprite,
+        self:getX(),
+        self:getY(),
+        0,
+        self.scale.x,
+        self.scale.y,
+        self.width / 2,
+        self.height / 2
     )
 end
 
@@ -57,18 +63,18 @@ end
 
 function Boss:collide()
     -- Both types of vehicles will collide with bullets
-    if self.collider:enter('PlayerBullet') then
+    if self.collider:enter("PlayerBullet") then
         self.health = self.health - PlayerBullet.damage
     end
 
     -- Only air vehicle will collide with player
-    if self.collider:enter('Player') then
+    if self.collider:enter("Player") then
         self.health = self.health - 1
     end
 
     -- Only land vehicle will collide with bombs
-    if self.collider:enter('Bomb') then
-        local collision_data = self.collider:getEnterCollisionData('Bomb')
+    if self.collider:enter("Bomb") then
+        local collision_data = self.collider:getEnterCollisionData("Bomb")
         local bomb = collision_data.collider:getObject()
         self.health = self.health - bomb.damage
     end
@@ -80,12 +86,14 @@ function Boss:die()
         return
     end
 
-    if self:getY() >= WINDOW_HEIGHT then self.enemyManager:destroyBoss(self) end
+    if self:getY() >= WINDOW_HEIGHT then
+        self.enemyManager:destroyBoss(self)
+    end
 end
 
 function Boss:createAirCollider(x, y, w, h)
     self.collider = WORLD:newRectangleCollider(x, y, w, h)
-    self.collider:setCollisionClass('Enemy')
+    self.collider:setCollisionClass("Enemy")
     self.collider:setCategory(ENEMY_CATEGORY.airCollider)
     self.collider:setFixedRotation(true)
 
@@ -101,7 +109,7 @@ end
 
 function Boss:createLandCollider(x, y, w, h)
     self.collider = WORLD:newRectangleCollider(x, y, w, h)
-    self.collider:setCollisionClass('Enemy')
+    self.collider:setCollisionClass("Enemy")
     self.collider:setCategory(ENEMY_CATEGORY.landCollider)
     self.collider:setFixedRotation(true)
 
@@ -143,7 +151,7 @@ function Boss:setShotSpeed(speed)
 end
 
 function Boss:setBulletClass(bulletClass, movement)
-    self.bulletClass = function ()
+    self.bulletClass = function()
         local x = self:getX()
         local y = self:getY() -- + self.height/2
         return bulletClass:new(x, y, self, movement)

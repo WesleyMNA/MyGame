@@ -1,6 +1,6 @@
-require('src.model.Bullet')
+require("src.model.Bullet")
 
-MegaBullet = Bullet:extend('MegaBullet')
+MegaBullet = Bullet:extend("MegaBullet")
 
 function MegaBullet:new(x, y, shooter, movement)
     local this = {
@@ -9,7 +9,6 @@ function MegaBullet:new(x, y, shooter, movement)
             x = 1,
             y = -1
         },
-
         move = {},
         movement = movement,
         direction = {}
@@ -31,11 +30,11 @@ function MegaBullet:new(x, y, shooter, movement)
 
     this:setEnemyManager(shooter.enemyManager)
 
-    local path = 'assets/sprites/enemy/boss/mega_bullet.png'
+    local path = "assets/sprites/enemy/boss/mega_bullet.png"
     this:setSprite(path)
 
     this:createCollider(x, y)
-    this.collider:setCollisionClass('EnemyBullet')
+    this.collider:setCollisionClass("EnemyBullet")
     this.collider:setCategory(ENEMY_CATEGORY.bullet)
     this.collider:setMask(
         ENEMY_CATEGORY.airCollider,
@@ -59,11 +58,13 @@ function MegaBullet:update(dt)
 end
 
 function MegaBullet:collide()
-    if self:isOutOfScreen() or self:hitPlayer() then self.enemyManager:destroyObject(self) end
+    if self:isOutOfScreen() or self:hitPlayer() then
+        self.enemyManager:destroyObject(self)
+    end
 end
 
 function MegaBullet:hitPlayer()
-    return self.collider:enter('Player')
+    return self.collider:enter("Player")
 end
 
 function MegaBullet:getDirection()
@@ -72,8 +73,8 @@ function MegaBullet:getDirection()
     local side = {}
     side.x = player:getX() - self:getX()
     side.y = player:getY() - self:getY()
-    local hypotenuse = math.sqrt(side.x^2 + side.y^2)
+    local hypotenuse = math.sqrt(side.x ^ 2 + side.y ^ 2)
 
-    self.direction.x = side.x/hypotenuse
-    self.direction.y = side.y/hypotenuse
+    self.direction.x = side.x / hypotenuse
+    self.direction.y = side.y / hypotenuse
 end

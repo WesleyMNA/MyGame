@@ -4,7 +4,6 @@ MobileEnemy.__index = MobileEnemy
 function MobileEnemy:extend(type)
     local this = {
         class = type,
-
         health = 1,
         speed = 150,
         direction = {
@@ -25,7 +24,9 @@ end
 
 function MobileEnemy:update(dt)
     -- Some enemies have animations to update
-    if self.animation then self.animation:update(dt) end
+    if self.animation then
+        self.animation:update(dt)
+    end
 
     self:move()
     self:collide()
@@ -36,9 +37,14 @@ end
 
 function MobileEnemy:render()
     love.graphics.draw(
-        self.sprite, self:getX(), self:getY(),
-        0, self.scale.x, self.scale.y,
-        self.width/2, self.height/2
+        self.sprite,
+        self:getX(),
+        self:getY(),
+        0,
+        self.scale.x,
+        self.scale.y,
+        self.width / 2,
+        self.height / 2
     )
 end
 
@@ -61,18 +67,18 @@ end
 
 function MobileEnemy:collide()
     -- Both types of vehicles will collide with bullets
-    if self.collider:enter('PlayerBullet') then
+    if self.collider:enter("PlayerBullet") then
         self.health = self.health - PlayerBullet.damage
     end
 
     -- Only air vehicle will collide with player
-    if self.collider:enter('Player') then
+    if self.collider:enter("Player") then
         self.health = self.health - 1
     end
 
     -- Only land vehicle will collide with bombs
-    if self.collider:enter('Bomb') then
-        local collision_data = self.collider:getEnterCollisionData('Bomb')
+    if self.collider:enter("Bomb") then
+        local collision_data = self.collider:getEnterCollisionData("Bomb")
         local bomb = collision_data.collider:getObject()
         self.health = self.health - bomb.damage
     end
@@ -84,12 +90,14 @@ function MobileEnemy:die()
         return
     end
 
-    if self:getY() >= WINDOW_HEIGHT then self.enemyManager:destroyEnemy(self) end
+    if self:getY() >= WINDOW_HEIGHT then
+        self.enemyManager:destroyEnemy(self)
+    end
 end
 
 function MobileEnemy:createAirCollider(x, y, r)
     self.collider = WORLD:newCircleCollider(x, y, r)
-    self.collider:setCollisionClass('Enemy')
+    self.collider:setCollisionClass("Enemy")
     self.collider:setCategory(ENEMY_CATEGORY.airCollider)
 
     -- Do not collide with land vehicles or bombs
@@ -104,7 +112,7 @@ end
 
 function MobileEnemy:createLandCollider(x, y, r)
     self.collider = WORLD:newCircleCollider(x, y, r)
-    self.collider:setCollisionClass('Enemy')
+    self.collider:setCollisionClass("Enemy")
     self.collider:setCategory(ENEMY_CATEGORY.landCollider)
 
     -- Do not collide with aircrafts
@@ -145,7 +153,7 @@ function MobileEnemy:setShotSpeed(speed)
 end
 
 function MobileEnemy:setBulletClass(bulletClass, movement)
-    self.bulletClass = function ()
+    self.bulletClass = function()
         local x = self:getX()
         local y = self:getY() -- + self.height/2
         return bulletClass:new(x, y, self, movement)

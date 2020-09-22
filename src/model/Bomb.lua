@@ -1,4 +1,4 @@
-require('src.Animation')
+require("src.Animation")
 
 Bomb = {}
 Bomb.__index = Bomb
@@ -6,8 +6,7 @@ Bomb.__index = Bomb
 function Bomb:extend(type)
     local this = {
         class = type,
-        
-        state = 'move',
+        state = "move",
         speed = 600,
         range = 400
     }
@@ -26,16 +25,21 @@ end
 
 function Bomb:render()
     love.graphics.draw(
-        self.spritesheet, self.quad,
-        self:getX(), self:getY(),
-        0, self.scale.x, self.scale.y,
-        self.width/2, self.height/2
+        self.spritesheet,
+        self.quad,
+        self:getX(),
+        self:getY(),
+        0,
+        self.scale.x,
+        self.scale.y,
+        self.width / 2,
+        self.height / 2
     )
 end
 
 function Bomb:move()
     local direction
-    if self.state == 'move' then
+    if self.state == "move" then
         direction = self.speed * self.scale.y
     else
         direction = 0
@@ -46,24 +50,24 @@ end
 
 function Bomb:collide()
     if self:isOutOfRange() then
-        self.state = 'collide'
+        self.state = "collide"
         self.collider:setCategory(PLAYER_CATEGORY.bomb) -- Changes category to collide with land enemies
     end
 
-    if self.state == 'collide' and self.animations[self.state]:hasFinished() then
+    if self.state == "collide" and self.animations[self.state]:hasFinished() then
         self.aircraft:destroySpecial(self)
     end
 end
 
 function Bomb:createCollider(x, y, r)
     self.collider = WORLD:newCircleCollider(x, y, r)
-    self.collider:setCollisionClass('Bomb')
+    self.collider:setCollisionClass("Bomb")
     self.collider:setCategory(PLAYER_CATEGORY.fallingBomb)
     self.collider:setObject(self)
 
     self.collider:setPreSolve(
         function(collider_1, collider_2, contact)
-            if collider_1.collision_class == 'Bomb' and collider_2.collision_class == 'Enemy' then
+            if collider_1.collision_class == "Bomb" and collider_2.collision_class == "Enemy" then
                 contact:setEnabled(false)
             end
         end
@@ -102,9 +106,7 @@ end
 
 function Bomb:isOutOfRange()
     local distance = self:getY() - self.startY
-    if self:getY() < 30 or
-    distance >= self.range or
-    distance <= -self.range then
+    if self:getY() < 30 or distance >= self.range or distance <= -self.range then
         return true
     end
     return false

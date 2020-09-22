@@ -1,6 +1,6 @@
-require('src.model.Bullet')
+require("src.model.Bullet")
 
-PlayerBullet = Bullet:extend('PlayerBullet')
+PlayerBullet = Bullet:extend("PlayerBullet")
 
 function PlayerBullet:new(x, y, shooter)
     local this = {
@@ -14,11 +14,11 @@ function PlayerBullet:new(x, y, shooter)
 
     this:setShooter(shooter)
 
-    local path = 'assets/sprites/player/bullet.png'
+    local path = "assets/sprites/player/bullet.png"
     this:setSprite(path)
 
     this:createCollider(x, y)
-    this.collider:setCollisionClass('PlayerBullet')
+    this.collider:setCollisionClass("PlayerBullet")
     this.collider:setCategory(PLAYER_CATEGORY.bullet)
     this.collider:setMask(
         PLAYER_CATEGORY.collider,
@@ -33,9 +33,11 @@ function PlayerBullet:new(x, y, shooter)
 end
 
 function PlayerBullet:collide()
-    if self:isOutOfScreen() or self:hitEnemy() then self.shooter:destroyBullet(self) end
+    if self:isOutOfScreen() or self:hitEnemy() then
+        self.shooter:destroyBullet(self)
+    end
 end
 
 function PlayerBullet:hitEnemy()
-    return self.collider:enter('Enemy')
+    return self.collider:enter("Enemy")
 end

@@ -1,7 +1,7 @@
-require('src.model.MobileEnemy')
-require('src.enemy.EnemyBullet')
+require("src.model.MobileEnemy")
+require("src.enemy.EnemyBullet")
 
-FixedCannon = MobileEnemy:extend('FixedCannon')
+FixedCannon = MobileEnemy:extend("FixedCannon")
 
 function FixedCannon:new(x, y, enemyManager)
     local this = {
@@ -10,19 +10,19 @@ function FixedCannon:new(x, y, enemyManager)
 
     setmetatable(this, self)
 
-    local path = 'assets/sprites/enemy/fixed-cannon.png'
+    local path = "assets/sprites/enemy/fixed-cannon.png"
     this:setSprite(path)
 
-    this:createLandCollider(x, y, this.width/2)
+    this:createLandCollider(x, y, this.width / 2)
 
     this:setEnemyManager(enemyManager)
-    this.bulletClass = function ()
+    this.bulletClass = function()
         -- It fires two bullets at once
         local x = this:getX() + 6
         local y = this:getY()
-        local bullet1 = EnemyBullet:new(x, y, this, 'straight')
+        local bullet1 = EnemyBullet:new(x, y, this, "straight")
         x = this:getX() - 6
-        local bullet2 = EnemyBullet:new(x, y, this, 'straight')
+        local bullet2 = EnemyBullet:new(x, y, this, "straight")
         return bullet1, bullet2
     end
     this:setShotSpeed(1)

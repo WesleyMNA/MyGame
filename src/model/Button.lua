@@ -18,12 +18,16 @@ function Button:render()
 end
 
 function Button:screenTouched()
-    if #love.touch.getTouches() == 0 then return false end
+    if #love.touch.getTouches() == 0 then
+        return false
+    end
     return true
 end
 
 function Button:mousePressed()
-    if love.mouse.isDown(1) then return true end
+    if love.mouse.isDown(1) then
+        return true
+    end
     return false
 end
 
@@ -35,10 +39,8 @@ function Button:isClicked()
 end
 
 function Button:isInButton(x, y)
-    return x > self.x and x < self.x + self.width and
-    y > self.y and y < self.y + self.height
+    return x > self.x and x < self.x + self.width and y > self.y and y < self.y + self.height
 end
-
 
 function Button:getTouchClick()
     local bool = false
@@ -46,7 +48,9 @@ function Button:getTouchClick()
     for i, id in ipairs(touches) do
         local x, y = love.touch.getPosition(id)
         bool = self:isInButton(x, y)
-        if bool then break end
+        if bool then
+            break
+        end
     end
     return bool
 end

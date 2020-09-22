@@ -1,16 +1,14 @@
-require('src.gui.Menu')
-require('src.gui.Config')
-require('src.gui.Hangar')
-
+require("src.gui.Menu")
+require("src.gui.Config")
+require("src.gui.Hangar")
 
 GUIManager = {}
 GUIManager.__index = GUIManager
 
 function GUIManager:new()
     local this = {
-        class = 'GUIManager',
-
-        current_gui = 'menu'
+        class = "GUIManager",
+        current_gui = "menu"
     }
 
     this.guis = {

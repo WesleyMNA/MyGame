@@ -3,7 +3,7 @@ Animation.__index = Animation
 
 function Animation:new(quad, animationData)
     local this = {
-        class = 'Animation',
+        class = "Animation",
         quad = quad,
         fps = animationData.fps,
         timer = 1 / animationData.fps,

@@ -1,16 +1,16 @@
-require('src.model.Button')
+require("src.model.Button")
 
-StartButton = Button:extend('StartButton')
+StartButton = Button:extend("StartButton")
 
 function StartButton:new()
     local this = {
         x = 15,
-        y = WINDOW_HEIGHT/2
+        y = WINDOW_HEIGHT / 2
     }
 
     setmetatable(this, self)
 
-    local path = 'assets/sprites/gui/menu/start.png'
+    local path = "assets/sprites/gui/buttons/start.png"
     this:setSprite(path)
 
     return this
@@ -18,7 +18,7 @@ end
 
 function StartButton:update(dt)
     if self:isClicked() then
-        GUI_MANAGER:setCurrentGUI('map')
+        GUI_MANAGER:setCurrentGUI("map")
     end
 end
 

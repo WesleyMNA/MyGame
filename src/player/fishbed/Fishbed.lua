@@ -1,17 +1,19 @@
-require('src.model.Aircraft')
-require('src.player.PlayerBullet')
-require('src.player.fishbed.FishbedSpecial')
+require("src.model.Aircraft")
+require("src.player.PlayerBullet")
+require("src.player.fishbed.FishbedSpecial")
 
-Fishbed = Aircraft:extend('Fishbed')
+Fishbed = Aircraft:extend("Fishbed")
+
+-- Data set bellow are needed earlier in game
+local path = "assets/sprites/player/fishbed/fishbed.png"
+Fishbed:setSprite(path)
 
 function Fishbed:new(x, y)
     local this = {
-
         launchBombs = true,
-        target = love.graphics.newImage('assets/sprites/player/target.png'),
+        target = love.graphics.newImage("assets/sprites/player/target.png"),
         specialTimer = 0.5,
         specialsLaunched = 0,
-
         scale = {
             x = 1,
             y = 1
@@ -20,10 +22,7 @@ function Fishbed:new(x, y)
 
     setmetatable(this, self)
 
-    local path = 'assets/sprites/player/fishbed/fishbed.png'
-    this:setSprite(path)
-
-    this:createCollider(x, y, this.height/2)
+    this:createCollider(x, y, this.height / 2)
 
     this:setShotSpeed(0.5)
     this:setBulletClass(PlayerBullet)
@@ -38,7 +37,11 @@ function Fishbed:launchSpecial()
         self.specialTimer = 0
 
         local side
-        if self.specialsLaunched % 2 == 0 then side = 1 else side = -1 end
+        if self.specialsLaunched % 2 == 0 then
+            side = 1
+        else
+            side = -1
+        end
 
         local x = self:getX() - 17 * side
         local y = self:getY() - 6
@@ -54,9 +57,7 @@ function Fishbed:launchSpecial()
 end
 
 function Fishbed:drawTarget()
-    local y = self:getY() - FishbedSpecial.range - self.height/2
-    local w, h = self.target:getWidth()/2, self.target:getHeight()/2
-    love.graphics.draw(
-        self.target, self:getX(), y, 0, 1, 1, w, h
-    )
+    local y = self:getY() - FishbedSpecial.range - self.height / 2
+    local w, h = self.target:getWidth() / 2, self.target:getHeight() / 2
+    love.graphics.draw(self.target, self:getX(), y, 0, 1, 1, w, h)
 end

@@ -1,6 +1,6 @@
-require('src.model.Bomb')
+require("src.model.Bomb")
 
-FishbedSpecial = Bomb:extend('FishbedSpecial')
+FishbedSpecial = Bomb:extend("FishbedSpecial")
 
 function FishbedSpecial:new(x, y, aircraft)
     local this = {
@@ -15,7 +15,7 @@ function FishbedSpecial:new(x, y, aircraft)
 
     this:setAircraft(aircraft)
 
-    local path = 'assets/sprites/player/fishbed/special.png'
+    local path = "assets/sprites/player/fishbed/special.png"
     this:setSpritesheet(path)
 
     this:createCollider(x, y, 10)

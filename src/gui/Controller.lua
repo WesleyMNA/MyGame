@@ -1,17 +1,16 @@
-require('src.gui.button.SpecialButton')
+require("src.gui.button.SpecialButton")
 
 Controller = {}
 Controller.__index = Controller
 
 function Controller:new(map)
     local this = {
-        class = 'Controller',
-
+        class = "Controller",
         map = map,
         player = map.player
     }
 
-    this.special = SpecialButton:new(0, WINDOW_HEIGHT-50, this)
+    this.special = SpecialButton:new(0, WINDOW_HEIGHT - 50, this)
 
     setmetatable(this, self)
     return this
@@ -47,12 +46,16 @@ function Controller:movePlayer(dt)
 end
 
 function Controller:screenTouched()
-    if #love.touch.getTouches() == 0 then return false end
+    if #love.touch.getTouches() == 0 then
+        return false
+    end
     return true
 end
 
 function Controller:mousePressed()
-    if love.mouse.isDown(1) then return true end
+    if love.mouse.isDown(1) then
+        return true
+    end
     return false
 end
 

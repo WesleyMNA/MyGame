@@ -1,28 +1,27 @@
 require("src.model.Button")
 
-MenuButton = Button:extend("MenuButton")
+BuyButton = Button:extend("BuyButton")
 
-function MenuButton:new(x, y)
+function BuyButton:new(x, y)
     local this = {}
 
     setmetatable(this, self)
 
-    local path = "assets/sprites/gui/buttons/menu.png"
+    local path = "assets/sprites/gui/buttons/buy.png"
     this:setSprite(path)
 
-    this.x = x or 0
+    this.x = x or WINDOW_WIDTH - this.width
     this.y = y or WINDOW_HEIGHT - this.height
 
     return this
 end
 
-function MenuButton:update(dt)
+function BuyButton:update(dt)
     if self:isClicked() then
-        GUI_MANAGER:setCurrentGUI("menu")
     end
 end
 
-function MenuButton:render()
+function BuyButton:render()
     setColor(WHITE)
     love.graphics.draw(self.sprite, self.x, self.y)
 end

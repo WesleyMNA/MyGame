@@ -1,21 +1,19 @@
-require('src.enemy.unit.TargetCannon')
-require('src.enemy.unit.Helicopter')
-require('src.enemy.unit.FixedCannon')
-require('src.enemy.unit.Car')
+require("src.enemy.unit.TargetCannon")
+require("src.enemy.unit.Helicopter")
+require("src.enemy.unit.FixedCannon")
+require("src.enemy.unit.Car")
 
-require('src.enemy.boss.mega_tank.MegaTank')
+require("src.enemy.boss.mega_tank.MegaTank")
 
 EnemyManager = {}
 EnemyManager.__index = EnemyManager
 
 function EnemyManager:new(map)
     local this = {
-        class = 'EnemyManager',
-
+        class = "EnemyManager",
         player = map.player,
         bossTimer = 0,
         unitsTimer = 0,
-
         enemiesInScene = {},
         objectsInScene = {},
         bossesInScene = {}
@@ -33,7 +31,7 @@ function EnemyManager:update(dt)
     updateLoop(dt, self.objectsInScene)
 
     if self.bossTimer >= 30 and #self.bossesInScene <= 0 then
-        local x = WINDOW_WIDTH/2
+        local x = WINDOW_WIDTH / 2
         local megaTank = MegaTank:new(x, -100, self)
         self:addBoss(megaTank)
         self.bossTimer = 0
@@ -42,7 +40,7 @@ function EnemyManager:update(dt)
 
     if self.unitsTimer >= 3 and #self.bossesInScene == 0 then
         local delimiter = 20
-        local x, y = math.random(0+delimiter, WINDOW_WIDTH-delimiter), 0
+        local x, y = math.random(0 + delimiter, WINDOW_WIDTH - delimiter), 0
         local random = math.random(4)
         if random == 1 then
             local targetCannon = TargetCannon:new(x, y, self)
@@ -68,12 +66,12 @@ function EnemyManager:render()
     renderLoop(self.objectsInScene)
 
     local x = 250
-    lovePrint('Boss: '.. math.floor(self.bossTimer), x, 0)
-    lovePrint('Unit: '.. math.floor(self.unitsTimer), x, 20)
+    lovePrint("Boss: " .. math.floor(self.bossTimer), x, 0)
+    lovePrint("Unit: " .. math.floor(self.unitsTimer), x, 20)
 end
 
 function EnemyManager:countBossTimer(dt)
-    if #self.bossesInScene <=0 then
+    if #self.bossesInScene <= 0 then
         self.bossTimer = self.bossTimer + dt
     end
 end

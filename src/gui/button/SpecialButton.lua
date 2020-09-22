@@ -1,12 +1,11 @@
-require('src.model.Button')
+require("src.model.Button")
 
-SpecialButton = Button:extend('SpecialButton')
+SpecialButton = Button:extend("SpecialButton")
 
 function SpecialButton:new(x, y, controller)
     local this = {
         x = x,
         y = y,
-
         player = controller.map.player,
         cooldown = controller.map.player.specialCooldown
     }
@@ -15,7 +14,7 @@ function SpecialButton:new(x, y, controller)
 
     setmetatable(this, self)
 
-    local path = 'assets/sprites/gui/special.png'
+    local path = "assets/sprites/gui/special.png"
     this:setSprite(path)
 
     this:setController(controller)
@@ -24,8 +23,7 @@ function SpecialButton:new(x, y, controller)
 end
 
 function SpecialButton:update(dt)
-    if self:isSpecialReady() and self:isClicked() or
-        self:isSpecialReady() and love.keyboard.isDown('space') then
+    if self:isSpecialReady() and self:isClicked() or self:isSpecialReady() and love.keyboard.isDown("space") then
         self.timer = 0
         self.player.enableSpecial = true
     end

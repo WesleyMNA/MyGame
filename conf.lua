@@ -2,7 +2,7 @@ function love.conf(t)
     t.console = true
 
     t.version = "11.3"
-    t.window.title = 'My Game'
+    t.window.title = "My Game"
 
     t.window.width = 360
     t.window.height = 616

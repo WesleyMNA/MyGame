@@ -4,13 +4,11 @@ Aircraft.__index = Aircraft
 function Aircraft:extend(type)
     local this = {
         class = type,
-
         speed = 300,
         bullets = {},
         specials = {},
         enableSpecial = false,
         cooldown = 0,
-
         scale = {
             x = 1,
             y = 1
@@ -27,7 +25,9 @@ function Aircraft:update(dt)
     updateLoop(dt, self.bullets)
     updateLoop(dt, self.specials)
     self:attack()
-    if self.enableSpecial then self:launchSpecial() end
+    if self.enableSpecial then
+        self:launchSpecial()
+    end
     self:resetTimers(dt)
 end
 
@@ -35,15 +35,22 @@ function Aircraft:render()
     renderLoop(self.bullets)
     renderLoop(self.specials)
     love.graphics.draw(
-        self.sprite, self:getX(), self:getY(),
-        0, self.scale.x, self.scale.y,
-        self.width/2, self.height/2
+        self.sprite,
+        self:getX(),
+        self:getY(),
+        0,
+        self.scale.x,
+        self.scale.y,
+        self.width / 2,
+        self.height / 2
     )
 
     self.collider:setLinearVelocity(0, 0)
 
     -- Draws a target that shows the range of bombs
-    if self.launchBombs then self:drawTarget() end
+    if self.launchBombs then
+        self:drawTarget()
+    end
 end
 
 function Aircraft:move(x, y, dt)
@@ -53,10 +60,10 @@ function Aircraft:move(x, y, dt)
     if self:getY() < y and not self:isOnBottomEdge() then
         self:setY(self:getY() + self.speed * dt)
     end
-    if  self:getX() > x and not self:isOnLeftEdge() then
+    if self:getX() > x and not self:isOnLeftEdge() then
         self:setX(self:getX() - self.speed * dt)
     end
-    if  self:getX() < x and not self:isOnRightEdge() then
+    if self:getX() < x and not self:isOnRightEdge() then
         self:setX(self:getX() + self.speed * dt)
     end
 end
@@ -88,7 +95,7 @@ end
 
 function Aircraft:createCollider(x, y)
     self.collider = WORLD:newCircleCollider(x, y, 16)
-    self.collider:setCollisionClass('Player')
+    self.collider:setCollisionClass("Player")
     self.collider:setCategory(PLAYER_CATEGORY.collider)
 
     -- Do not collide with land vehicles or it weapons
@@ -101,21 +108,21 @@ function Aircraft:createCollider(x, y)
 end
 
 function Aircraft:isOnRightEdge()
-    if self:getX() + self.width/2 >= WINDOW_WIDTH then
+    if self:getX() + self.width / 2 >= WINDOW_WIDTH then
         return true
     end
     return false
 end
 
 function Aircraft:isOnLeftEdge()
-    if self:getX() - self.width/2 <= 0 then
+    if self:getX() - self.width / 2 <= 0 then
         return true
     end
     return false
 end
 
 function Aircraft:isOnBottomEdge()
-    if self:getY() + self.height/2 >= WINDOW_HEIGHT then
+    if self:getY() + self.height / 2 >= WINDOW_HEIGHT then
         return true
     end
     return false
@@ -153,9 +160,9 @@ function Aircraft:setShotSpeed(speed)
 end
 
 function Aircraft:setBulletClass(bulletClass)
-    self.bulletClass = function ()
+    self.bulletClass = function()
         local x = self:getX()
-        local y = self:getY() - self.height/2
+        local y = self:getY() - self.height / 2
         return bulletClass:new(x, y, self)
     end
 end

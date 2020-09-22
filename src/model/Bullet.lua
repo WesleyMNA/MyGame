@@ -4,7 +4,6 @@ Bullet.__index = Bullet
 function Bullet:extend(type)
     local this = {
         class = type,
-
         damage = 1,
         speed = 600
     }
@@ -22,9 +21,14 @@ end
 
 function Bullet:render()
     love.graphics.draw(
-        self.sprite, self:getX(), self:getY(),
-        0, self.scale.x, self.scale.y,
-        self.width/2, self.height/2
+        self.sprite,
+        self:getX(),
+        self:getY(),
+        0,
+        self.scale.x,
+        self.scale.y,
+        self.width / 2,
+        self.height / 2
     )
 end
 

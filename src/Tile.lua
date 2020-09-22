@@ -1,6 +1,6 @@
-require('src.util.Util')
+require("src.util.Util")
 
-local spritesheet = love.graphics.newImage('assets/sprites/tiles.png')
+local spritesheet = love.graphics.newImage("assets/sprites/tiles.png")
 local tileSprites = generateQuads(spritesheet, TILE_SIZE, TILE_SIZE)
 
 Tile = {}
@@ -8,8 +8,7 @@ Tile.__index = Tile
 
 function Tile:new(x, y, tile)
     local this = {
-        class = 'Tile',
-
+        class = "Tile",
         x = x,
         y = y,
         tile = tile
@@ -28,7 +27,5 @@ function Tile:update(dt)
 end
 
 function Tile:render()
-    love.graphics.draw(
-        spritesheet, tileSprites[self.tile], self.x, self.y
-    )
+    love.graphics.draw(spritesheet, tileSprites[self.tile], self.x, self.y)
 end

@@ -1,12 +1,11 @@
-require('src.gui.button.MenuButton')
+require("src.gui.button.MenuButton")
 
 Config = {}
 Config.__index = Config
 
 function Config:new()
     local this = {
-        class = 'Config',
-
+        class = "Config",
         buttons = {
             menuButton = MenuButton:new()
         }
