@@ -6,12 +6,13 @@ local tileSprites = generateQuads(spritesheet, TILE_SIZE, TILE_SIZE)
 Tile = {}
 Tile.__index = Tile
 
-function Tile:new(x, y, tile)
+function Tile:new(x, y, tile, map)
     local this = {
         class = "Tile",
         x = x,
         y = y,
-        tile = tile
+        tile = tile,
+        map = map
     }
 
     setmetatable(this, self)
@@ -22,7 +23,7 @@ function Tile:update(dt)
     self.y = self.y + 1
 
     if self.y >= WINDOW_HEIGHT then
-        MAP:destroyTile(self)
+        self.map:destroyTile(self)
     end
 end
 

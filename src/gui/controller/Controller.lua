@@ -1,4 +1,4 @@
-require("src.gui.button.SpecialButton")
+require("src.gui.controller.SpecialButton")
 
 Controller = {}
 Controller.__index = Controller

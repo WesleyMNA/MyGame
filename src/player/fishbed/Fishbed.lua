@@ -7,6 +7,7 @@ Fishbed = Aircraft:extend("Fishbed")
 -- Data set bellow are needed earlier in game
 local path = "assets/sprites/player/fishbed/fishbed.png"
 Fishbed:setSprite(path)
+Fishbed.specialButtonSprite = "assets/sprites/player/fishbed/special-button.png"
 
 function Fishbed:new(x, y)
     local this = {

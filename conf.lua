@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.console = true
+    -- t.console = true
 
     t.version = "11.3"
     t.window.title = "My Game"

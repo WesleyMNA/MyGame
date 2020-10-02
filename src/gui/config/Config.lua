@@ -3,9 +3,10 @@ require("src.gui.button.MenuButton")
 Config = {}
 Config.__index = Config
 
-function Config:new()
+function Config:new(guiManager)
     local this = {
         class = "Config",
+        guiManager = guiManager,
         buttons = {
             menuButton = MenuButton:new()
         }

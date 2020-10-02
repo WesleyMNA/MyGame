@@ -1,8 +1,9 @@
-require("src.gui.Controller")
-require("src.enemy.EnemyManager")
-require("src.player.fishbed.Fishbed")
-
 require("src.Tile")
+require("src.manager.EnemyManager")
+require("src.player.fishbed.Fishbed")
+require("src.player.tiger2.Tiger2")
+require("src.gui.controller.Controller")
+
 
 PLAYER_CATEGORY = {
     collider = 1,
@@ -34,11 +35,12 @@ function Map:new()
         initialPoint = -5,
         width = math.ceil(WINDOW_WIDTH / TILE_SIZE),
         height = math.ceil(WINDOW_HEIGHT / TILE_SIZE),
-        player = Fishbed:new(150, 450),
         tiles = {},
         scale = 25
     }
 
+    local aircraft = AIRCRAFTS_MANAGER:getCurrentAircraft()
+    this.player = aircraft:new(150, 450)
     this.controller = Controller:new(this)
     this.enemyManager = EnemyManager:new(this)
 
@@ -52,7 +54,7 @@ function Map:new()
             else
                 tile = DARK_SAND
             end
-            this:addTile(x, y, tile)
+            this:addTile(x, y, tile, this)
         end
     end
 
@@ -83,21 +85,21 @@ function Map:render()
 end
 
 function Map:createNewLayer()
-    local tile
+    local tileType
     for x = 0, self.width do
         local n = love.math.noise(x / self.scale, self.y / self.scale)
         if n <= 0.5 then
-            tile = SAND
+            tileType = SAND
         else
-            tile = DARK_SAND
+            tileType = DARK_SAND
         end
-        self:addTile(x, self.initialPoint, tile)
+        self:addTile(x, self.initialPoint, tileType)
     end
 end
 
-function Map:addTile(x, y, n)
+function Map:addTile(x, y, tileType)
     x, y = x * TILE_SIZE, y * TILE_SIZE
-    local tile = Tile:new(x, y, n)
+    local tile = Tile:new(x, y, tileType, self)
     table.insert(self.tiles, tile)
 end
 

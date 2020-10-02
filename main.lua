@@ -1,7 +1,7 @@
-require("src.Map")
 require("src.util.Util")
 require("src.util.Color")
-require("src.gui.GUIManager")
+require("src.manager.GUIManager")
+require("src.manager.AircraftsManager")
 require("src.util.CreateCollisionClasses")
 
 local wf = require "libs.windfield"
@@ -9,8 +9,7 @@ local wf = require "libs.windfield"
 WORLD = wf.newWorld(0, 0, false)
 createCollisionClasses()
 
-MAP = Map:new()
-
+AIRCRAFTS_MANAGER = AircraftsManager:new()
 GUI_MANAGER = GUIManager:new()
 
 function love.load()

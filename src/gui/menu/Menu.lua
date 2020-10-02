@@ -1,13 +1,14 @@
-require("src.gui.button.StartButton")
-require("src.gui.button.ConfigButton")
-require("src.gui.button.HangarButton")
+require("src.gui.menu.StartButton")
+require("src.gui.menu.ConfigButton")
+require("src.gui.menu.HangarButton")
 
 Menu = {}
 Menu.__index = Menu
 
-function Menu:new()
+function Menu:new(guiManager)
     local this = {
         class = "Menu",
+        guiManager = guiManager,
         buttons = {
             startButton = StartButton:new(),
             configButton = ConfigButton:new(),

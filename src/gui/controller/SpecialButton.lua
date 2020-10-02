@@ -6,16 +6,15 @@ function SpecialButton:new(x, y, controller)
     local this = {
         x = x,
         y = y,
-        player = controller.map.player,
-        cooldown = controller.map.player.specialCooldown
+        player = controller.player,
+        cooldown = controller.player.specialCooldown
     }
 
     this.timer = this.cooldown
 
     setmetatable(this, self)
 
-    local path = "assets/sprites/gui/special.png"
-    this:setSprite(path)
+    this:setSprite(this.player.specialButtonSprite)
 
     this:setController(controller)
 

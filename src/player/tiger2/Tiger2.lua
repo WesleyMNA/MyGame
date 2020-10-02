@@ -6,6 +6,7 @@ Tiger2 = Aircraft:extend("Tiger2")
 -- Data set bellow are needed earlier in game
 local path = "assets/sprites/player/tiger2/tiger2.png"
 Tiger2:setSprite(path)
+Tiger2.specialButtonSprite = "assets/sprites/player/tiger2/special-button.png"
 
 function Tiger2:new(x, y)
     local this = {

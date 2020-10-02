@@ -10,7 +10,7 @@ function StartButton:new()
 
     setmetatable(this, self)
 
-    local path = "assets/sprites/gui/buttons/start.png"
+    local path = "assets/sprites/gui/menu/start.png"
     this:setSprite(path)
 
     return this
@@ -18,6 +18,7 @@ end
 
 function StartButton:update(dt)
     if self:isClicked() then
+        GUI_MANAGER:createMap()
         GUI_MANAGER:setCurrentGUI("map")
     end
 end

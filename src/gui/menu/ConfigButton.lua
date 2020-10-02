@@ -7,7 +7,7 @@ function ConfigButton:new()
 
     setmetatable(this, self)
 
-    local path = "assets/sprites/gui/buttons/config.png"
+    local path = "assets/sprites/gui/menu/config.png"
     this:setSprite(path)
 
     this.x = WINDOW_WIDTH - this.width * 1.5
